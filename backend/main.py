@@ -11,16 +11,16 @@ from utils.downloader import FileDownloader
 app = FastAPI(title="SitePeek API", version="1.0.0")
 
 # CORS middleware for frontend connection
-# Update these origins when deploying to production
+# In production, explicitly allow localhost for dev and vercel.app for frontend deployments
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000",
         "http://127.0.0.1:3000",
-        "https://*.vercel.app",  # Allow all Vercel deployments
-        # Add your custom domain here when ready:
+        # Add your custom domain here when ready, e.g.:
         # "https://sitepeek.yourdomain.com",
     ],
+    allow_origin_regex=r"https://.*\\.vercel\\.app$",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -52,6 +52,11 @@ async def root():
         "version": "1.0.0",
         "status": "healthy"
     }
+
+@app.get("/healthz")
+async def healthz():
+    """Lightweight health check path for Render/Load balancers"""
+    return {"status": "ok", "version": "1.0.0"}
 
 @app.post("/analyze", response_model=AnalyzeResponse)
 async def analyze_website(request: AnalyzeRequest):
