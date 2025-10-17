@@ -1,5 +1,5 @@
 {
-  "buildCommand": "cd frontend",
+  "buildCommand": "",
   "outputDirectory": "frontend",
   "cleanUrls": true,
   "trailingSlash": false,
