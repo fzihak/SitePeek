@@ -2,7 +2,7 @@
 // For production, update this to your deployed backend URL
 const API_BASE_URL = window.location.hostname === 'localhost' 
     ? 'http://localhost:8000' 
-    : 'https://your-backend-url.railway.app'; // Update this after deploying backend
+    : 'https://sitepeek.onrender.com'; // Render backend URL
 
 // Global state
 let currentData = null;
